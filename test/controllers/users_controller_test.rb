@@ -4,6 +4,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:general_user)
+    @other_user = users(:other_user)
   end
 
   # ---ユーザー一覧ページ(/users)---
@@ -14,7 +15,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get users_path when logged in" do
-    login_as(@user, :scope => :user)
+    login_as @user
     get users_path
     assert_response :success
   end

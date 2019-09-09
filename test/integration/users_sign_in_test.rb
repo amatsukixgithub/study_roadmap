@@ -3,6 +3,8 @@ require 'test_helper'
 class UsersSignInTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:general_user)
+    @other_user = users(:general_user)
+    @admin_user = users(:admin_user)
   end
 
   # --- [devise gem] ユーザー登録(/users/sign_up) ---
@@ -76,7 +78,39 @@ class UsersSignInTest < ActionDispatch::IntegrationTest
     post users_path, params: { session: { email: @user.email, password: 'password', name: 'change_name' } }
 
     assert_response :redirect
+    assert_redirected_to root_url
     assert "change_name", @user.name
+  end
+
+  # --- ユーザー一覧(/users) ---
+  # 管理ユーザー：ユーザー削除後のユーザー数-1、削除ボタン表示
+  test "should delete other_user when delete user_delete_path after logged in admin user" do
+    login_as @admin_user
+    get users_path
+    assert_response :success
+    # 管理者：ユーザー削除ボタン表示
+    assert_select "input[value=?]", "delete"
+
+    assert_difference 'User.count', -1 do
+      delete user_delete_path(@other_user)
+    end
+    assert_response :redirect
+    assert_redirected_to users_path
+  end
+
+  # 一般ユーザー：ユーザー削除後のユーザー数±0、削除ボタン非表示
+  test "can not delete other_user when delete user_delete_path after logged in general user" do
+    login_as @user
+    get users_path
+    assert_response :success
+    # 一般：ユーザー削除ボタン非表示
+    assert_select "input[value=delete]", false
+
+    assert_difference 'User.count', 0 do
+      delete user_delete_path(@other_user)
+    end
+    assert_response :redirect
+    assert_redirected_to users_path
   end
 
 end
