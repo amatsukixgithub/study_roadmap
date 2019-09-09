@@ -76,7 +76,18 @@ class UsersSignInTest < ActionDispatch::IntegrationTest
     post users_path, params: { session: { email: @user.email, password: 'password', name: 'change_name' } }
 
     assert_response :redirect
+    assert_redirected_to root_url
     assert "change_name", @user.name
+  end
+
+  # --- ユーザー一覧(/users) ---
+  # ユーザー削除後のユーザー数 -1
+  test "should delete other_user when delete user_delete_path" do
+    login_as @user
+    assert_difference 'User.count', -1 do
+      delete user_delete_path(@other_user)
+    end
+    assert_redirected_to users_path
   end
 
 end

@@ -9,3 +9,8 @@ general_user:
   name: general
   email: general_example@example.comexamplee
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+
+other_user:
+  name: other
+  email: other_example@example.comexamplee
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
