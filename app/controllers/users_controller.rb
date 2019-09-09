@@ -9,8 +9,12 @@ class UsersController < ApplicationController
 
   # ユーザー一覧ページからのユーザー削除
   def delete_user
-    User.find(params[:id]).destroy
-    flash[:success] = "User deleted"
+    if current_user.admin?
+      User.find(params[:id]).destroy
+      flash[:success] = "User deleted"
+    else
+      flash[:error] = "Error not delete"
+    end
     redirect_to users_path
   end
 end
