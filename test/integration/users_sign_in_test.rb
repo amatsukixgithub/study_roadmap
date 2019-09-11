@@ -113,4 +113,7 @@ class UsersSignInTest < ActionDispatch::IntegrationTest
     assert_redirected_to users_path
   end
 
+  # --- ユーザー個人ページ(/users/:id/show) ---
+
+
 end
