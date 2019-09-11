@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   # devise のヘルパー ログイン済みユーザーのみアクセス許可
-  before_action :authenticate_user!, only: [:index]
+  before_action :authenticate_user!, only: [:index, :delete_user, :show_user]
 
   # ユーザー一覧ページ
   def index
@@ -16,5 +16,10 @@ class UsersController < ApplicationController
       flash[:error] = "Error not delete"
     end
     redirect_to users_path
+  end
+
+  # ユーザー個人ページ
+  def show_user
+    @user=User.find(params[:id])
   end
 end
