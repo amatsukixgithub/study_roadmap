@@ -90,6 +90,7 @@ class UsersSignInTest < ActionDispatch::IntegrationTest
     assert_response :success
     # 管理者：ユーザー削除ボタン表示
     assert_select "input[value=?]", "delete"
+    assert_select "a[href=?]", user_show_path(@admin_user.id), text: @admin_user.name
 
     assert_difference 'User.count', -1 do
       delete user_delete_path(@other_user)
@@ -105,6 +106,7 @@ class UsersSignInTest < ActionDispatch::IntegrationTest
     assert_response :success
     # 一般：ユーザー削除ボタン非表示
     assert_select "input[value=delete]", false
+    assert_select "a[href=?]", user_show_path(@user.id), text: @user.name
 
     assert_difference 'User.count', 0 do
       delete user_delete_path(@other_user)
@@ -112,5 +114,8 @@ class UsersSignInTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to users_path
   end
+
+  # --- ユーザー個人ページ(/users/:id/show) ---
+
 
 end

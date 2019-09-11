@@ -20,4 +20,17 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  # --- ユーザー個人ページ(/users/:id/show) ---
+  test "should can not user_show_path when not logged in" do
+    get user_show_path @user
+    assert_response :redirect
+    assert_redirected_to user_session_path
+  end
+
+  test "should get user_show_path when logged in" do
+    login_as @user
+    get user_show_path @user
+    assert_response :success
+  end
+
 end
