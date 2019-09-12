@@ -9,6 +9,8 @@ general_user:
   name: general
   email: general_example@example.comexamplee
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  comment: commment
+  web_page: web_page
 
 other_user:
   name: other
