@@ -82,6 +82,20 @@ class UsersSignInTest < ActionDispatch::IntegrationTest
     assert "change_name", @user.name
   end
 
+    # ユーザー編集ページでユーザーのコメント、Webページ、を変更
+    test "should change comment and web_page when post edit_user_registration_path" do
+      login_as @user
+      get edit_user_registration_path
+      assert "comment", @user.comment
+      assert "web_page", @user.web_page
+      post users_path, params: { session: { email: @user.email, password: 'password', comment: 'change_comment', web_page: 'change_web_page' } }
+
+      assert_response :redirect
+      assert_redirected_to root_url
+      assert "change_comment", @user.comment
+      assert "change_web_page", @user.web_page
+    end
+
   # --- ユーザー一覧(/users) ---
   # 管理ユーザー：ユーザー削除後のユーザー数-1、削除ボタン表示
   test "should delete other_user when delete user_delete_path after logged in admin user" do
