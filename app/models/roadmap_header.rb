@@ -1,6 +1,8 @@
 class RoadmapHeader < ApplicationRecord
   belongs_to :user
 
+  has_one :roadmap_detail, dependent: :destroy
+
   # デフォルトでcreated_atを逆順でソート
   default_scope -> { order(created_at: :desc) }
 

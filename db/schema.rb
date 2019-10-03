@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_01_224915) do
+ActiveRecord::Schema.define(version: 2019_10_02_141827) do
+
+  create_table "roadmap_details", force: :cascade do |t|
+    t.integer "roadmap_header_id", null: false
+    t.text "sub_title"
+    t.text "pic_pass1"
+    t.text "pic_pass2"
+    t.text "pic_pass3"
+    t.text "pic_pass4"
+    t.integer "time_required"
+    t.integer "time_required_unit"
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["roadmap_header_id"], name: "index_roadmap_details_on_roadmap_header_id"
+  end
 
   create_table "roadmap_headers", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -39,5 +54,6 @@ ActiveRecord::Schema.define(version: 2019_10_01_224915) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "roadmap_details", "roadmap_headers"
   add_foreign_key "roadmap_headers", "users"
 end
