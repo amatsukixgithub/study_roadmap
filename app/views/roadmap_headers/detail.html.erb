@@ -1,0 +1,11 @@
+<% provide(:title, 'Detail Roadmap') %>
+<h1><%= @roadmap_header.title %></h1>
+
+<ul class="Roadmap">
+  <% @roadmap_details.each do |r| %>
+    <h2><%= r.sub_title %></h2>
+    <li>
+      <%= r.content %>
+    </li>
+  <% end %>
+</ul>

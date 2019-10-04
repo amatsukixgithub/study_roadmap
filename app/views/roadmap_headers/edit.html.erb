@@ -1,0 +1,26 @@
+<% provide(:title, 'Edit Roadmap') %>
+<h1>Edit Roadmap</h1>
+
+<div>
+  <%= form_for(@roadmap_post, url: roadmap_update_path) do |r| %>
+    <%= r.label :title %>
+    <%= r.text_field :title %>
+
+    <div>
+      <%= r.fields_for :roadmap_detail do |rd| %>
+        <%= rd.label :sub_title %>
+        <%= rd.text_field :sub_title %>
+
+        <%= rd.label :time_required %>
+        <%= rd.number_field :time_required %>
+
+        <%= rd.label :content %>
+        <%= rd.text_area :content %>
+      <% end %>
+    </div>
+
+    <div>
+      <%= r.submit "Edit Roadmap" %>
+    </div>
+  <% end %>
+</div>
