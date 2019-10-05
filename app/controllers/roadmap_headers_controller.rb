@@ -1,6 +1,7 @@
 class RoadmapHeadersController < ApplicationController
   # devise のヘルパー ログイン済みユーザーのみアクセス許可
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   # ロードマップ一覧表示
   def index
@@ -37,7 +38,7 @@ class RoadmapHeadersController < ApplicationController
   # ロードマップ更新
   def update
     @roadmap_post = RoadmapHeader.find(params[:id])
-    if @roadmap_post.update_attributes(roadmap_header_params)
+    if @roadmap_post.update(roadmap_header_params)
       redirect_to roadmap_show_path(@roadmap_post)
     else
       render "edit"
@@ -59,4 +60,9 @@ class RoadmapHeadersController < ApplicationController
     params.require(:roadmap_header).permit(:title, roadmap_detail_attributes:[:sub_title, :content, :time_required])
   end
 
+  # 作成者以外のユーザーはアクセスできない
+  def correct_user
+    roadmap_user_id = RoadmapHeader.find(params[:id]).user_id
+    redirect_to(roadmaps_path) unless roadmap_user_id == current_user.id
+  end
 end
