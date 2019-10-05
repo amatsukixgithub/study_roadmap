@@ -37,12 +37,17 @@ class RoadmapHeadersController < ApplicationController
   # ロードマップ更新
   def update
     @roadmap_post = RoadmapHeader.find(params[:id])
-    byebug
     if @roadmap_post.update_attributes(roadmap_header_params)
       redirect_to roadmap_show_path(@roadmap_post)
     else
       render "edit"
     end
+  end
+
+  # ロードマップ削除
+  def destroy
+    RoadmapHeader.find(params[:id]).destroy
+    redirect_to roadmaps_path
   end
 
   private

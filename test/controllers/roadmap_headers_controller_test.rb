@@ -55,4 +55,14 @@ class RoadmapHeadersControllerTest < ActionDispatch::IntegrationTest
     get roadmap_edit_path(@roadmap_header)
     assert_response :success
   end
+
+  # ---ロードマップ削除---
+  test "" do
+    login_as @user
+    assert_difference 'RoadmapHeader.count', -1 do
+      delete roadmap_destroy_path(@roadmap_header)
+    end
+    assert_response :redirect
+    assert_redirected_to roadmaps_path
+  end
 end

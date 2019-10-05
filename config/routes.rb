@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get '/roadmaps/:id/edit', to: 'roadmap_headers#edit', as: 'roadmap_edit'
   patch '/roadmaps/:id/edit', to: 'roadmap_headers#update', as: 'roadmap_update'
   # 削除
-  delete '/roadmaps/:id/delete', to: 'roadmap_headers#delete', as: 'roadmap_delete'
+  delete '/roadmaps/:id/destroy', to: 'roadmap_headers#destroy', as: 'roadmap_destroy'
 
   # --- 静的ページ ---
   root 'static_pages#home'

@@ -22,5 +22,8 @@
     <div>
       <%= r.submit "Edit Roadmap" %>
     </div>
+
+      <%= link_to "delete", roadmap_destroy_path(@roadmap_post.id), method: :delete %>
+
   <% end %>
 </div>
