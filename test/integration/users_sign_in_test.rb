@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'test_helper'
 
 class UsersSignInTest < ActionDispatch::IntegrationTest
@@ -8,8 +9,7 @@ class UsersSignInTest < ActionDispatch::IntegrationTest
   end
 
   # --- [devise gem] ユーザー登録(/users/sign_up) ---
-  # ログインしていないとき、ユーザー登録ページにアクセス
-  test 'shoule get new_user_registration when get new_user_registration_path after not logged in' do
+  test "ログインしていないとき、ユーザー登録ページにアクセス" do
     get new_user_registration_path
     assert_response :success
   end
@@ -82,19 +82,19 @@ class UsersSignInTest < ActionDispatch::IntegrationTest
     assert "change_name", @user.name
   end
 
-    # ユーザー編集ページでユーザーのコメント、Webページ、を変更
-    test "should change comment and web_page when post edit_user_registration_path" do
-      login_as @user
-      get edit_user_registration_path
-      assert "comment", @user.comment
-      assert "web_page", @user.web_page
-      post users_path, params: { session: { email: @user.email, password: 'password', comment: 'change_comment', web_page: 'change_web_page' } }
+  # ユーザー編集ページでユーザーのコメント、Webページ、を変更
+  test "should change comment and web_page when post edit_user_registration_path" do
+    login_as @user
+    get edit_user_registration_path
+    assert "comment", @user.comment
+    assert "web_page", @user.web_page
+    post users_path, params: { session: { email: @user.email, password: 'password', comment: 'change_comment', web_page: 'change_web_page' } }
 
-      assert_response :redirect
-      assert_redirected_to root_url
-      assert "change_comment", @user.comment
-      assert "change_web_page", @user.web_page
-    end
+    assert_response :redirect
+    assert_redirected_to root_url
+    assert "change_comment", @user.comment
+    assert "change_web_page", @user.web_page
+  end
 
   # --- ユーザー一覧(/users) ---
   # 管理ユーザー：ユーザー削除後のユーザー数-1、削除ボタン表示
@@ -131,5 +131,9 @@ class UsersSignInTest < ActionDispatch::IntegrationTest
 
   # --- ユーザー個人ページ(/users/:id/show) ---
 
-
+  # --- ロードマップ一覧(/roadmaps) ---
+  # --- ロードマップ詳細(/roadmaps/:id/show) ---
+  # --- ロードマップ新規作成 ---
+  # --- ロードマップ編集 ---
+  # --- ロードマップ削除 ---
 end
