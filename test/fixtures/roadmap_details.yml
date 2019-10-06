@@ -1,0 +1,6 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+pc_detail:
+  roadmap_header: pc
+  sub_title: "typing now"
+  content: "typetypetypetypetypetypetype"
