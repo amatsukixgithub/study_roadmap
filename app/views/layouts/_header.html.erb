@@ -1,61 +1,65 @@
-  <!-- Navbar -->
-  <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
-    <div class="container">
+<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
 
-      <!-- Brand -->
-      <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-        <strong>MDB</strong>
-      </a>
+    <!-- Brand -->
+    <%= link_to "RoS", roadmaps_path, class: "navbar-brand" %>
 
-      <!-- Collapse -->
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <!-- Collapse -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <!-- Links -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <!-- Left -->
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
-            </a>
+      <!-- Left -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item <%= 'active' if @title == 'Home' %>">
+          <%= link_to home_path, class: "nav-link" do%>
+            Home
+          <% end %>
+        </li>
+        <li class="nav-item <%= 'active' if @title == 'About' %>">
+          <%= link_to about_path, class: "nav-link" do%>
+            About
+          <% end %>
+        </li>
+        <li class="nav-item <%= 'active' if @title == 'Contact' %>">
+          <%= link_to contact_path, class: "nav-link" do%>
+            Contact
+          <% end %>
+        </li>
+      </ul>
+      <ul class="navbar-nav mr-auto">
+        <!-- Search form -->
+        <li class="nav-item">
+          <form class="form-inline">
+            <div class="md-form my-0">
+              <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            </div>
+          </form>
+        </li>
+      </ul>
+
+      <!-- Right -->
+      <ul class="navbar-nav nav-flex-icons">
+
+        <% if user_signed_in? %> <!-- ユーザーがログインしているか -->
+          <li class="nav-item">
+            <%= link_to current_user.name, user_show_path(current_user), class: 'nav-link border border-light rounded waves-effect waves-light' %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign in", new_user_session_path, class: 'nav-link' %> <!-- ログイン画面に移行する -->
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/" target="_blank">About MDB</a>
+            <%= link_to "Sign up", new_user_registration_path, class: 'nav-link border border-light rounded waves-effect waves-light' %> <!-- 新規登録画面に移行する -->
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">Free download</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Free tutorials</a>
-          </li>
-        </ul>
-
-        <!-- Right -->
-        <ul class="navbar-nav nav-flex-icons">
-          <li class="nav-item">
-            <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
-              <i class="fab fa-facebook-f"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
-              <i class="fab fa-twitter"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect waves-light"
-              target="_blank">
-              <i class="fab fa-github mr-2"></i>MDB GitHub
-            </a>
-          </li>
-        </ul>
-
-      </div>
-
+        <% end %>
+      </ul>
     </div>
-  </nav>
-  <!-- Navbar -->
+  </div>
+</nav>
+<!-- Navbar -->
