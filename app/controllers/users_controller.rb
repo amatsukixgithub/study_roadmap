@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 
   # ユーザー個人ページ
   def show_user
-    @user=User.find(params[:id])
+    @user = User.find(params[:id])
+    @user_roadmap = RoadmapHeader.where(user: @user)
   end
 end
