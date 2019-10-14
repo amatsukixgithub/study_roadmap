@@ -1,2 +1,30 @@
-<% provide(:title, "#{@user.name}\'s Page") %>
-<h1><%= @user.name %>'s page</h1>
+<% @title = "#{@user.name}\'s Page" %>
+
+<div class="container" style="padding-top:7rem">
+  <h3 class="h3 text-center mb-5"><i class="fas fa-user light-blue-text"></i> <%= @title %></h3>
+  <div>
+    <h4><%= @user.email %></h4>
+    <p class="grey-text"><%= @user.comment %></p>
+    <% if @current_user_page %>
+      <div class="text-right">
+        <%= link_to "ロードマップ作成", roadmap_new_path, class: "btn btn-info btn-rounded" %>
+        <%= link_to "ユーザー編集", edit_user_registration_path, class: "btn btn-info btn-rounded" %>
+        <%= link_to "ログアウト", destroy_user_session_path, class: "btn btn-outline-info btn-rounded waves-effect", method: :delete %>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <h4>投稿一覧</h4>
+
+    <ul class="list-group mt-3">
+      <% @user_roadmap.each do |roadmap| %>
+        <li class="list-group-item">
+          <%= link_to roadmap_show_path(roadmap), class: "text-dark" do %>
+            <i class="fas fa-heart mr-4 pr-3"></i> <%= roadmap.title %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

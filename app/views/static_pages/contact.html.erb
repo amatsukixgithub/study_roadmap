@@ -1,3 +1,61 @@
-<% provide(:title, "Contact") %>
-<h1>StaticPages#contact</h1>
-<p>Find me in app/views/static_pages/contact.html.erb</p>
+<%= render 'layouts/header_slide' %>
+<main>
+  <div class="container">
+    <!--Section: Main features & Quick Start-->
+    <section class="mt-5 wow fadeIn">
+
+      <h3 class="h3 text-center mb-5"><i class="fas fa-address-card"></i> Contact</h3>
+
+      <!--Grid row-->
+      <div class="row wow fadeIn">
+
+        <!--Grid column-->
+        <div class="col-md-12 px-4">
+
+          <!--First row-->
+          <div class="row card">
+            <%= link_to "https://twitter.com/amachanprog", target: "_blank" do%>
+            <div class="card-body">
+              <h4><i class="fab fa-twitter mr-3 black-text fa-2x"></i> Twitter <i class="fas fa-link"></i></h4>
+              <p class="grey-text">日々の勉強をツイートしています。</p>
+            </div>
+            <% end %>
+          </div>
+          <!--/First row-->
+
+          <div style="height:30px"></div>
+
+          <!--Second row-->
+          <div class="row card">
+            <%= link_to "https://amatsukixprog.hatenablog.jp/archive", target: "_blank" do%>
+            <div class="card-body">
+              <h4><i class="fab fa-blogger-b mr-3 black-text fa-2x"></i> Blog <i class="fas fa-link"></i></h4>
+              <p class="grey-text">主にRubyに関する記事を書いています。</p>
+            </div>
+            <% end %>
+          </div>
+          <!--/Second row-->
+
+          <div style="height:30px"></div>
+
+          <!--Third row-->
+          <div class="row card">
+            <%= link_to "https://github.com/amatsukixgithub/study_roadmap", target: "_blank" do%>
+            <div class="card-body">
+              <h4><i class="fab fa-github mr-3 black-text fa-2x"></i> Github <i class="fas fa-link"></i></h4>
+              <p class="grey-text">Roadmap of Study 等ソースコードを共有しています。</p>
+            </div>
+            <% end %>
+          </div>
+          <!--/Third row-->
+
+        </div>
+        <!--/Grid column-->
+
+      </div>
+      <!--/Grid row-->
+
+    </section>
+    <!--Section: Main features & Quick Start-->
+  </div>
+</main>

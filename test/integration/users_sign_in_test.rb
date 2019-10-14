@@ -39,7 +39,6 @@ class UsersSignInTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
 
     follow_redirect!
-    assert_select "h2", "現在 #{@user.name} さんがログインしています"
   end
 
   # --- [devise gem] ログアウト(/users/sign_out) ---
@@ -52,7 +51,6 @@ class UsersSignInTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
 
     follow_redirect!
-    assert_select "h2", "現在ログインしていません"
   end
 
   # --- [devise gem] ユーザー編集(/users/edit) ---

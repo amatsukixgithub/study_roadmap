@@ -1,0 +1,17 @@
+      <%= form_for(@roadmap_post, url: roadmap_create_path, class: "text-center border border-light p-5" ) do |r| %>
+        <%= r.text_field :title, class: "form-control mb-4", placeholder: "タイトル" %>
+
+        <div>
+          <%= r.fields_for :roadmap_detail do |rd| %>
+            <%= rd.text_field :sub_title, class: "form-control mb-4", placeholder: "サブタイトル" %>
+
+            <%= rd.number_field :time_required, class: "form-control mb-4", placeholder: "所要時間(hour)" %>
+
+            <%= rd.text_area :content, class: "form-control mb-4", placeholder: "内容" %>
+          <% end %>
+        </div>
+
+        <div>
+          <%= r.submit @title, class: "btn btn-info btn-block" %>
+        </div>
+      <% end %>
