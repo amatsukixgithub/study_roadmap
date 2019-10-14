@@ -11,6 +11,7 @@ class RoadmapHeadersController < ApplicationController
   # Roadmapの詳細画面
   def detail
     @roadmap_header = RoadmapHeader.find(params[:id])
+    @current_user_roadmap = @roadmap_header.user_id == current_user.id
     @roadmap_details = RoadmapDetail.where(roadmap_header_id: @roadmap_header.id)
   end
 

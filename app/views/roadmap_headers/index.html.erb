@@ -1,10 +1,15 @@
-<% provide(:title, 'All Roadmaps') %>
-<h1>All Roadmaps</h1>
+<% @title = "All Roadmaps" %>
 
-<ul class="roadmaps">
-  <% @roadmap_headers.each do |r| %>
-    <li>
-      <%= link_to r.title, roadmap_show_path(r) %>
-    </li>
-  <% end %>
-</ul>
+<div class="container" style="padding-top:7rem">
+  <h3 class="h3 text-center mb-5"><i class="far fa-map light-blue-text"></i> <%= @title %></h3>
+
+  <ul class="list-group mt-3">
+    <% @roadmap_headers.each do |r| %>
+      <%= link_to roadmap_show_path(r), class: "text-dark" do %>
+        <li class="list-group-item">
+          <%= r.title %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

@@ -1,11 +1,24 @@
-<% provide(:title, 'Detail Roadmap') %>
-<h1><%= @roadmap_header.title %></h1>
+<% @title = "Detail Roadmap" %>
 
-<ul class="Roadmap">
+<div class="container" style="padding-top:7rem">
+  <h3 class="h3 text-center mb-5"><i class="far fa-map light-blue-text"></i> <%= @title %></h3>
+
+    <% if @current_user_roadmap %>
+      <div class="text-right">
+        <%= link_to "ロードマップ編集", roadmap_edit_path, class: "btn btn-info btn-rounded" %>
+      </div>
+    <% end %>
+
+  <h1><%= @roadmap_header.title %></h1>
+  <hr>
   <% @roadmap_details.each do |r| %>
-    <h2><%= r.sub_title %></h2>
-    <li>
-      <%= r.content %>
-    </li>
+    <div class="card">
+      <div class="card-header">
+        <%= r.sub_title %>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><%= r.content %></li>
+      </ul>
+    </div>
   <% end %>
-</ul>
+</div>

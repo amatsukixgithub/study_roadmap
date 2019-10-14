@@ -1,29 +1,11 @@
-<% provide(:title, 'Edit Roadmap') %>
-<h1>Edit Roadmap</h1>
+<% @title = "Edit Roadmap" %>
 
-<div>
-  <%= form_for(@roadmap_post, url: roadmap_update_path) do |r| %>
-    <%= r.label :title %>
-    <%= r.text_field :title %>
+<div class="container" style="padding-top:7rem">
+  <h3 class="h3 text-center mb-5"><i class="far fa-map light-blue-text"></i> <%= @title %></h3>
 
-    <div>
-      <%= r.fields_for :roadmap_detail do |rd| %>
-        <%= rd.label :sub_title %>
-        <%= rd.text_field :sub_title %>
+  <%= render 'roadmap_headers/form_roadmap' %>
 
-        <%= rd.label :time_required %>
-        <%= rd.number_field :time_required %>
+  <br><br>
 
-        <%= rd.label :content %>
-        <%= rd.text_area :content %>
-      <% end %>
-    </div>
-
-    <div>
-      <%= r.submit "Edit Roadmap" %>
-    </div>
-
-      <%= link_to "delete", roadmap_destroy_path(@roadmap_post.id), method: :delete %>
-
-  <% end %>
+  <%= link_to "Delete Roadmap", roadmap_destroy_path(@roadmap_post.id), data: { confirm: "Are you sure?" }, method: :delete,  class: "btn btn-blue-grey waves-effect" %>
 </div>
