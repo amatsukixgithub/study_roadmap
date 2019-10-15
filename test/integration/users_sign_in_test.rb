@@ -3,7 +3,7 @@ require 'test_helper'
 class UsersSignInTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:general_user)
-    @other_user = users(:general_user)
+    @other_user = users(:other_user)
     @admin_user = users(:admin_user)
   end
 
