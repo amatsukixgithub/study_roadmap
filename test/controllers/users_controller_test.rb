@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
-
   def setup
     @user = users(:general_user)
     @other_user = users(:other_user)
@@ -32,5 +31,4 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get user_show_path @user
     assert_response :success
   end
-
 end

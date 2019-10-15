@@ -60,7 +60,7 @@ class RoadmapHeadersController < ApplicationController
   def roadmap_header_params
     # require(:roadmap_header) roadmap_header属性を必須とする
     # permit() 指定された属性を許可する
-    params.require(:roadmap_header).permit(:title, roadmap_detail_attributes:[:sub_title, :content, :time_required])
+    params.require(:roadmap_header).permit(:title, roadmap_detail_attributes: [:sub_title, :content, :time_required])
   end
 
   # 作成者以外のユーザーはアクセスできない

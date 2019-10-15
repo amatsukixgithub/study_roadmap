@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class StaticPagesControllerTest < ActionDispatch::IntegrationTest
-
   def setup
     @base_title = 'StudyRoadmap'
   end
@@ -29,5 +28,4 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select 'title', "About | #{@base_title}"
   end
-
 end
