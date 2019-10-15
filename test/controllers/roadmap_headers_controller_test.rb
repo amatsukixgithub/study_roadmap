@@ -46,13 +46,17 @@ class RoadmapHeadersControllerTest < ActionDispatch::IntegrationTest
 
   test "未ログイン時はロードマップ作成不可" do
     assert_difference 'RoadmapHeader.count', 0 do
-      post roadmap_create_path, params: { roadmap_header: {
-                                            title:  "title is title",
-                                            roadmap_detail_attributes: {
-                                              sub_title: "sub_title",
-                                              content: "context",
-                                              time_required: ""
-                                            } } }
+      post roadmap_create_path,
+           params: {
+             roadmap_header: {
+               title: "title is title",
+               roadmap_detail_attributes: {
+                 sub_title: "sub_title",
+                 content: "context",
+                 time_required: ""
+               }
+             }
+           }
     end
     assert_response :redirect
     assert_redirected_to user_session_path
@@ -61,13 +65,17 @@ class RoadmapHeadersControllerTest < ActionDispatch::IntegrationTest
   test "ログイン後はロードマップ作成可能" do
     login_as @user
     assert_difference 'RoadmapHeader.count', +1 do
-      post roadmap_create_path, params: { roadmap_header: {
-                                            title:  "title is title",
-                                            roadmap_detail_attributes: {
-                                              sub_title: "sub_title",
-                                              content: "context",
-                                              time_required: ""
-                                            } } }
+      post roadmap_create_path,
+           params: {
+             roadmap_header: {
+               title: "title is title",
+               roadmap_detail_attributes: {
+                 sub_title: "sub_title",
+                 content: "context",
+                 time_required: ""
+               }
+             }
+           }
     end
     assert_response :redirect
   end
@@ -93,39 +101,51 @@ class RoadmapHeadersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "未ログイン時はロードマップ編集不可" do
-    patch roadmap_edit_path(@roadmap_header), params: { roadmap_header: {
-                                          title:  "title is title",
-                                          roadmap_detail_attributes: {
-                                            sub_title: "sub_title",
-                                            content: "context",
-                                            time_required: ""
-                                          } } }
+    patch roadmap_edit_path(@roadmap_header),
+          params: {
+            roadmap_header: {
+              title: "title is title",
+              roadmap_detail_attributes: {
+                sub_title: "sub_title",
+                content: "context",
+                time_required: ""
+              }
+            }
+          }
     assert_response :redirect
     assert_redirected_to user_session_path
   end
 
   test "ログイン後はロードマップ編集可能" do
     login_as @user
-    patch roadmap_edit_path(@roadmap_header), params: { roadmap_header: {
-                                            title:  "title is title",
-                                            roadmap_detail_attributes: {
-                                              sub_title: "sub_title",
-                                              content: "context",
-                                              time_required: ""
-                                            } } }
+    patch roadmap_edit_path(@roadmap_header),
+          params: {
+            roadmap_header: {
+              title: "title is title",
+              roadmap_detail_attributes: {
+                sub_title: "sub_title",
+                content: "context",
+                time_required: ""
+              }
+            }
+          }
     assert_response :redirect
     assert_redirected_to roadmap_show_path(@roadmap_header)
   end
 
   test "作成者以外のユーザーがログインしている場合はロードマップ編集不可" do
     login_as @user_other
-    patch roadmap_edit_path(@roadmap_header), params: { roadmap_header: {
-                                            title:  "title is title",
-                                            roadmap_detail_attributes: {
-                                              sub_title: "sub_title",
-                                              content: "context",
-                                              time_required: ""
-                                            } } }
+    patch roadmap_edit_path(@roadmap_header),
+          params: {
+            roadmap_header: {
+              title: "title is title",
+              roadmap_detail_attributes: {
+                sub_title: "sub_title",
+                content: "context",
+                time_required: ""
+              }
+            }
+          }
     assert_response :redirect
     assert_redirected_to roadmaps_path
   end

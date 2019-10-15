@@ -1,0 +1,82 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  # 除外するディレクトリ（自動生成されたファイル）
+  # デフォルト設定にある"vendor/**/*"が無効化されないように記述
+  Exclude:
+    - bin/*
+    - db/schema.rb
+    - db/migrate/*
+    - vendor/**/*
+    - node_modules/**/* # node_modules配下のフォルダを除外
+    - tmp/**/*
+    - public/**/*
+    - Gemfile
+
+  TargetRubyVersion: 2.6.4
+
+# classのドキュメントコメントを無効
+Style/Documentation:
+  Enabled: false
+
+# ダブルクォーテーション、シングルクォーテーションの制限無効
+Style/StringLiterals:
+  Enabled: false
+
+# コードの長さの制限無効
+Metrics/LineLength:
+  Enabled: false
+
+# 日本語のコメントを許可する
+Style/AsciiComments:
+  Enabled: false
+
+# !! のイディオムは積極的に使う
+Style/DoubleNegation:
+  Enabled: false
+
+# 明示的に else で nil を返すのは分かりやすいので許可する
+Style/EmptyElse:
+  EnforcedStyle: empty
+
+# 条件式の方を意識させたい場合には後置の if/unless を使わない方が分かりやすい
+Style/IfUnlessModifier:
+  Enabled: false
+
+# 1_000_000 と区切り文字が 2 個以上必要になる場合のみ _ 区切りを必須にする
+Style/NumericLiterals:
+  MinDigits: 7
+
+# * 式展開したい場合に書き換えるのが面倒
+# * 文章ではダブルクォートよりもシングルクォートの方が頻出する
+# ことから EnforcedStyle: double_quotes 推奨
+# Style/StringLiterals:
+#   EnforcedStyle: double_quotes
+
+# 20 行超えるのは migration ファイル以外滅多に無い
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - "db/migrate/*.rb"
+
+# クラスの行数が多すぎる
+ClassLength:
+  Enabled: false
+
+# メソッドの行数が多すぎる
+MethodLength:
+  Enabled: false
+
+# Frozenのコメント
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# ネストなスタイルとコンパクトなスタイルのクラス両方を許可
+# (既存のコードをあまり触りたくない)
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# シンボルの配列は%記法を用いなくてもよい
+Style/SymbolArray:
+  Enabled: false

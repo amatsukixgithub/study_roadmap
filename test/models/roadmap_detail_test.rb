@@ -1,7 +1,7 @@
 require 'test_helper'
 
+# RoadmapDetailのモデルテスト
 class RoadmapDetailTest < ActiveSupport::TestCase
-
   def setup
     @roadmap_header = roadmap_headers(:ruby)
     @roadmap_detail = @roadmap_header.build_roadmap_detail(sub_title: "First rails", pic_pass1: "", pic_pass2: "", pic_pass3: "", pic_pass4: "", time_required: 20, time_required_unit: 2, content: "lesson ABC")
