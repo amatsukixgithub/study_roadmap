@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/ruby:2.6.4-node-browsers
+      - image: circleci/ruby:2.6.4-stretch-browsers
         environment:
           BUNDLER_VERSION: 2.0.2
 
@@ -40,7 +40,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            bundle install
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
 
       - save_cache:
           paths:
