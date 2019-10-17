@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/ruby:2.6.4-stretch-browsers
+      - image: circleci/ruby:2.6.4-node-browsers
         environment:
           BUNDLER_VERSION: 2.0.2
 
@@ -37,7 +37,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: yarn install
+      - run: yarn install --check-files
 
       - run:
           name: install dependencies
