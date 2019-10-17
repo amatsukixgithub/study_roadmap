@@ -1,66 +1,65 @@
-# Ruby CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-ruby/ for more details
-#
-version: 2
-jobs:
-  build:
+version: 2.1
+
+orbs:
+  ruby-orbs: sue445/ruby-orbs@1.4.3
+  reviewdog: yasuhiroki/reviewdog@0.0.3
+
+executors:
+  default:
+    working_directory: ~/workspace
     docker:
-      # specify the version you desire here
       - image: circleci/ruby:2.6.4-node-browsers
         environment:
-          BUNDLER_VERSION: 2.0.2
+          RAILS_ENV: test
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
-    working_directory: ~/repo
-
+commands:
+  lint:
+    parameters:
+      lint_result_file_path:
+        description: Lint result file path
+        type: string
     steps:
       - checkout
-
       - run:
-          name: setup bundler
+          name: Rubocop update
+          command: gem update rubocop
+      - run: rubocop --out <<parameters.lint_result_file_path>> || true
+      - store_artifacts:
+          path: <<parameters.lint_result_file_path>>
+
+jobs:
+  rails_minitest:
+    executor:
+      name: default
+    steps:
+      - checkout
+      - ruby-orbs/bundle-install:
+          bundle_clean: true
+          bundle_extra_args: ''
+          bundle_gemfile: Gemfile
+          bundle_jobs: 4
+          bundle_path: vendor/bundle
+          bundle_retry: 3
+          cache_key_prefix: v1-bundle
+          restore_bundled_with: true
+      # 初期設定
+      - run:
+          name: Database setup
           command: |
-            sudo gem update --system
-            sudo gem uninstall bundler
-            sudo rm /usr/local/bin/bundle
-            sudo rm /usr/local/bin/bundler
-            sudo gem install bundler
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
-      - run: yarn install --check-files
-
+            bundle exec rails db:create
+            bundle exec rails db:migrate
       - run:
-          name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
-
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
-      # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
-
-      # run tests!
-      - run:
-          name: Rails Test
+          name: Rails Minitest
           command: bundle exec rake test
 
-      # collect reports
-      - store_test_results:
-          path: /tmp/test-results
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+workflows:
+  continuous-integration:
+    jobs:
+      - rails_minitest
+      - reviewdog/reviewdog:
+          linter_image: cagedata/rubocop
+          reviewdog_format_option: '-f=rubocop'
+          run_linter_steps:
+            - lint:
+                lint_result_file_path: lint_result.txt
+          lint_result_file_path: lint_result.txt
