@@ -11,7 +11,7 @@ jobs:
         environment:
           BUNDLER_VERSION: 2.0.2
           RAILS_ENV: test
-          REVIEWDOG_VERSION: 0.9.13
+          REVIEWDOG_VERSION: 0.9.11
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -59,8 +59,7 @@ jobs:
       - run:
           name: Install Reviewdog
           command: |
-            curl -fSL https://github.com/haya14busa/reviewdog/releases/download/$REVIEWDOG_VERSION/reviewdog_linux_amd64 -o reviewdog
-            chmod +x ./reviewdog
+            curl -fSL https://github.com/haya14busa/reviewdog/releases/download/$REVIEWDOG_VERSION/reviewdog_linux_amd64 -o reviewdog && chmod +x ./reviewdog
 
       # Database setup
       - run: bundle exec rails db:create
