@@ -4,7 +4,7 @@ class StaticPagesController < ApplicationController
   end
 
   def contact
-    @title = 'Contact'
+      @title = 'Contact'
   end
 
   def about
