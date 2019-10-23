@@ -69,3 +69,4 @@ jobs:
       - run:
           name: Rubocop & Reviewdog
           command: bundle exec rubocop | ./reviewdog -f=rubocop -reporter=github-pr-review
+
