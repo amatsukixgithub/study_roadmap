@@ -10,11 +10,8 @@ jobs:
       - image: circleci/ruby:2.6.4-node-browsers
         environment:
           BUNDLER_VERSION: 2.0.2
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
+          RAILS_ENV: test
+          REVIEWDOG_VERSION: 0.9.11
 
     working_directory: ~/repo
 
@@ -37,40 +34,46 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
+      # yarnのインストール
       - run: yarn install --check-files
 
+      # bundlerのインストール
       - run:
           name: install dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - run: bundle exec rake webpacker:compile
 
       - save_cache:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
+      # Reviewdogのインストール
+      - run:
+          name: Install Reviewdog
+          command: |
+            curl -fSL https://github.com/haya14busa/reviewdog/releases/download/$REVIEWDOG_VERSION/reviewdog_linux_amd64 -o reviewdog && chmod +x ./reviewdog
+
       # Database setup
-      - run: bundle exec rake db:create
-      - run: bundle exec rake db:schema:load
+      - run: bundle exec rails db:create
+      - run: bundle exec rails db:migrate
 
       # run tests!
       - run:
-          name: run tests
+          name: Rails Test
+          command: bundle exec rake test
+
+      # Rubocop & Reviewdogの実行
+      - run:
+          name: Rubocop & Reviewdog
+          command: bundle exec rubocop | ./reviewdog -f=rubocop -reporter=github-pr-review
+
+      # masterブランチのときHerokuにデプロイ
+      - deploy:
+          name: Deploy Master to Heroku
           command: |
-            mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
-              circleci tests split --split-by=timings)"
-
-            bundle exec rspec \
-              --format progress \
-              --format RspecJunitFormatter \
-              --out /tmp/test-results/rspec.xml \
-              --format progress \
-              $TEST_FILES
-
-      # collect reports
-      - store_test_results:
-          path: /tmp/test-results
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+            fi

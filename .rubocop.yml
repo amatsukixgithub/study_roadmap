@@ -13,6 +13,7 @@ AllCops:
     - tmp/**/*
     - public/**/*
     - Gemfile
+    - .circleci/**/*
 
   TargetRubyVersion: 2.6.4
 
