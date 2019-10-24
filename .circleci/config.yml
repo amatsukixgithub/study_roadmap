@@ -70,6 +70,16 @@ jobs:
           name: Rubocop & Reviewdog
           command: bundle exec rubocop | ./reviewdog -f=rubocop -reporter=github-pr-review
 
+      # Heroku CLIのインストール
+      - run:
+          name: 'Install Heroku CLI, if necessary'
+          command: |
+            if [[ $(command -v heroku) == "" ]]; then
+              curl https://cli-assets.heroku.com/install.sh | sh
+            else
+              echo "Heroku is already installed. No operation was performed."
+            fi
+
       # masterブランチのときHerokuにデプロイ
       - deploy:
           name: Deploy Master to Heroku
