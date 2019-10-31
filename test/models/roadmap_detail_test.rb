@@ -66,9 +66,9 @@ class RoadmapDetailTest < ActiveSupport::TestCase
     assert_not @roadmap_detail.valid?
   end
 
-  test "content should be at most 5000 characters" do
+  test "content should be at most 50000 characters" do
     assert @roadmap_detail.valid?
-    @roadmap_detail.content = "a" * 5001
+    @roadmap_detail.content = "a" * 50001
     assert_not @roadmap_detail.valid?
   end
 
