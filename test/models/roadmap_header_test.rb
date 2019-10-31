@@ -24,8 +24,8 @@ class RoadmapHeaderTest < ActiveSupport::TestCase
     assert_not @roadmap_header.valid?
   end
 
-  test "title should be at most 50 characters" do
-    @roadmap_header.title = "a" * 51
+  test "title should be at most 100 characters" do
+    @roadmap_header.title = "a" * 101
     assert_not @roadmap_header.valid?
   end
 

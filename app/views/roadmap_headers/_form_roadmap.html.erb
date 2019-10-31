@@ -7,7 +7,10 @@
 
             <%= rd.number_field :time_required, class: "form-control mb-4", placeholder: "所要時間(hour)" %>
 
-            <%= rd.text_area :content, class: "form-control mb-4", placeholder: "内容" %>
+            <div class="field">
+              <%= rd.label :content %>
+              <%= rd.rich_text_area :content, placeholder: "内容"  %>
+            </div>
           <% end %>
         </div>
 
