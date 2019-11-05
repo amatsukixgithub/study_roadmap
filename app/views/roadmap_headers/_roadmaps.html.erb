@@ -1,0 +1,12 @@
+    <ul class="list-group mt-3">
+      <% @roadmap_headers.each do |r| %>
+        <li class="list-group-item">
+          <div>
+            <%= link_to r.title, roadmap_show_path(r), class: "text-dark"%>
+          </div>
+          <div class="text-muted">
+            by <%= link_to r.name, user_show_path(r.user_id), class: "text-muted" %>
+          </div>
+        </li>
+      <% end %>
+    </ul>

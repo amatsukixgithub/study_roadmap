@@ -2,14 +2,5 @@
 
 <div class="container" style="padding-top:7rem">
   <h3 class="h3 text-center mb-5"><i class="far fa-map light-blue-text"></i> <%= @title %></h3>
-
-  <ul class="list-group mt-3">
-    <% @roadmap_headers.each do |r| %>
-      <%= link_to roadmap_show_path(r), class: "text-dark" do %>
-        <li class="list-group-item">
-          <%= r.title %>
-        </li>
-      <% end %>
-    <% end %>
-  </ul>
+  <%= render 'roadmap_headers/roadmaps' %>
 </div>

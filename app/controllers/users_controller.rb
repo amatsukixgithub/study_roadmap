@@ -22,6 +22,6 @@ class UsersController < ApplicationController
   def show_user
     @current_user_page = params[:id].to_i == current_user.id
     @user = User.find(params[:id])
-    @user_roadmap = RoadmapHeader.where(user: @user)
+    @roadmap_headers = RoadmapHeader.where(user: @user).joins("LEFT OUTER JOIN users ON roadmap_headers.user_id = users.id").select("roadmap_headers.*, users.*")
   end
 end

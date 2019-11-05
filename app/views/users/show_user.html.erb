@@ -16,15 +16,6 @@
 
   <div>
     <h4>投稿一覧</h4>
-
-    <ul class="list-group mt-3">
-      <% @user_roadmap.each do |roadmap| %>
-        <li class="list-group-item">
-          <%= link_to roadmap_show_path(roadmap), class: "text-dark" do %>
-            <i class="fas fa-heart mr-4 pr-3"></i> <%= roadmap.title %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
+    <%= render 'roadmap_headers/roadmaps' %>
   </div>
 </div>

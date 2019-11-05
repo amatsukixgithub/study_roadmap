@@ -5,7 +5,7 @@ class RoadmapHeadersController < ApplicationController
 
   # ロードマップ一覧表示
   def index
-    @roadmap_headers = RoadmapHeader.all
+    @roadmap_headers = RoadmapHeader.joins("LEFT OUTER JOIN users ON roadmap_headers.user_id = users.id").select("roadmap_headers.*, users.*").all
   end
 
   # Roadmapの詳細画面
