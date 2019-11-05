@@ -130,7 +130,7 @@ class UsersSignInTest < ActionDispatch::IntegrationTest
 
   # --- ロードマップ一覧(/roadmaps) ---
   # --- ロードマップ詳細(/roadmaps/:id/show) ---
-  # --- ロードマップ新規作成 ---
-  # --- ロードマップ編集 ---
-  # --- ロードマップ削除 ---
+  # --- ロードマップ新規作成(/roadmaps/new) ---
+  # --- ロードマップ編集(/roadmaps/edit) ---
+  # --- ロードマップ削除(/roadmaps/destroy) ---
 end
