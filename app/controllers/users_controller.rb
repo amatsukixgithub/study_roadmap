@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   # devise のヘルパー ログイン済みユーザーのみアクセス許可
   before_action :authenticate_user!, only: [:index, :delete_user, :show_user]
+  # 作成者 or 管理者
+  before_action :correct_user, only: [:delete_user]
 
   # ユーザー一覧ページ
   def index
@@ -9,7 +11,8 @@ class UsersController < ApplicationController
 
   # ユーザー一覧ページからのユーザー削除
   def delete_user
-    if current_user.admin?
+    @admin = current_user.admin?
+    if @admin
       User.find(params[:id]).destroy
       flash[:success] = "User deleted"
     else
@@ -22,6 +25,16 @@ class UsersController < ApplicationController
   def show_user
     @current_user_page = params[:id].to_i == current_user.id
     @user = User.find(params[:id])
-    @roadmap_headers = RoadmapHeader.where(user: @user).joins("LEFT OUTER JOIN users ON roadmap_headers.user_id = users.id").select("roadmap_headers.*, users.*")
+    @roadmap_headers = RoadmapHeader.where(user: @user).joins("LEFT OUTER JOIN users ON roadmap_headers.user_id = users.id").select("roadmap_headers.*, users.name")
+  end
+
+  private
+
+  # 作成者 or 管理者 以外のユーザーはアクセスできない
+  def correct_user
+    user_id = User.find(params[:id])
+    return if user_id == current_user.id || current_user.admin?
+
+    redirect_to(users_path)
   end
 end
