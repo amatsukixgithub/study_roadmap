@@ -31,4 +31,14 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     get user_show_path @user
     assert_response :success
   end
+
+  test "should redirect following when not logged in" do
+    get following_user_path(@user)
+    assert_redirected_to new_user_session_url
+  end
+
+  test "should redirect followers when not logged in" do
+    get followers_user_path(@user)
+    assert_redirected_to new_user_session_url
+  end
 end

@@ -4,6 +4,13 @@ Rails.application.routes.draw do
   get '/users', to: 'users#index'
   get '/users/:id/show', to: 'users#show_user', as: 'user_show'
   delete '/users/:id/delete', to: 'users#delete_user', as: 'user_delete'
+  # フォローフォロワー
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+  resources :relationships, only: [:create, :destroy]
 
   # --- ロードマップ関連 ---
   # 一覧

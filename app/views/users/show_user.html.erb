@@ -4,7 +4,22 @@
   <h3 class="h3 text-center mb-5"><i class="fas fa-user light-blue-text"></i> <%= @title %></h3>
   <div>
     <h4><%= @user.email %></h4>
+    <%= render 'follow_form' if user_signed_in? %>
     <p class="grey-text"><%= @user.comment %></p>
+
+    <a href="<%= following_user_path(@user) %>">
+      <strong id="following">
+        <%= @user.following.count %>
+      </strong>
+      following
+    </a>
+    <a href="<%= followers_user_path(@user) %>">
+      <strong id="followers">
+        <%= @user.followers.count %>
+      </strong>
+      followers
+    </a>
+
     <% if @current_user_page %>
       <div class="text-right">
         <%= link_to "ロードマップ作成", roadmap_new_path, class: "btn btn-info btn-rounded" %>
