@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class RelationshipTest < ActiveSupport::TestCase
-
   def setup
     @relationship = Relationship.new(follower_id: users(:general_user).id,
                                      followed_id: users(:other_user).id)
