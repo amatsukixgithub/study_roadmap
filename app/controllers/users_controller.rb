@@ -11,8 +11,7 @@ class UsersController < ApplicationController
 
   # ユーザー一覧ページからのユーザー削除
   def delete_user
-    @admin = current_user.admin?
-    if @admin
+    if current_user.admin?
       User.find(params[:id]).destroy
       flash[:success] = "User deleted"
     else

@@ -13,9 +13,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { in: 4..20 }
+  validates :email, length: { maximum: 254 }
   validates :web_page, length: { maximum: 400 }
   validates :comment, length: { maximum: 400 }
+  validates :icon_pass, length: { maximum: 400 }
+  validates :admin, inclusion: { in: [true, false] }
 
   # ユーザーをフォローする
   def follow(other_user)
