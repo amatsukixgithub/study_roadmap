@@ -11,9 +11,9 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_self
- *= require css/bootstrap.min.css
- *= require css/mdb.min.css
- *= require css/style.min.css
+ *= require css/bootstrap.css
+ *= require css/mdb.css
+ *= require css/style.css
  *= require actiontext.scss
  *= require users.scss
  */

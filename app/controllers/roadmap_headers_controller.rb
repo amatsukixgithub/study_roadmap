@@ -28,6 +28,7 @@ class RoadmapHeadersController < ApplicationController
   def create
     @roadmap_post = current_user.roadmap_header.build(roadmap_header_params)
     if @roadmap_post.save
+      flash[:success] = "Created the Roadmap!"
       redirect_to roadmap_show_path(@roadmap_post)
     else
       render "new"

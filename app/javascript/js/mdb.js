@@ -15982,5 +15982,5 @@ var _this = void 0;
 
 document.addEventListener("DOMContentLoaded", function () {
 
-  bsCustomFileInput.init()
+  // bsCustomFileInput.init()
 });
