@@ -15,6 +15,7 @@ AllCops:
     - Gemfile
     - .circleci/**/*
     - spec/**/*
+    - test/**/*
 
   TargetRubyVersion: 2.6.4
 
@@ -63,12 +64,12 @@ Metrics/MethodLength:
     - "db/migrate/*.rb"
 
 # クラスの行数が多すぎる
-ClassLength:
-  Enabled: false
+# ClassLength:
+#   Enabled: false
 
 # メソッドの行数が多すぎる
-MethodLength:
-  Enabled: false
+# MethodLength:
+#   Enabled: false
 
 # Frozenのコメント
 Style/FrozenStringLiteralComment:
