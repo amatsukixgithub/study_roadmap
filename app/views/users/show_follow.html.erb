@@ -4,9 +4,11 @@
   <ul class="list-group mt-3">
     <% @users.each do |user| %>
       <li class="list-group-item">
-        <%= link_to user.name, user_show_path(user), class: "text-dark" %>
+        <%= link_to user.name, user_show_path(user), class: "text-dark text-underline" %>
         <% if current_user.admin?%>
-          <%= button_to "Delete", user_delete_path(user), data: { confirm: "Delete #{user.name}\nAre you sure?" }, method: :delete %>
+          <%= link_to user_delete_path(user), data: { confirm: "Delete #{user.name}\nAre you sure?" }, method: :delete, class: "text-dark" do %>
+            <i class="far fa-times-circle text-muted"></i>Delete
+          <% end %>
         <% end %>
       </li>
     <% end %>
