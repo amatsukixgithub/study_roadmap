@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     @admin = current_user.admin?
     if @admin
       User.find(params[:id]).destroy
-      flash[:success] = "User deleted"
+      flash[:success] = "User deleted!"
     else
       flash[:error] = "Error not delete"
     end

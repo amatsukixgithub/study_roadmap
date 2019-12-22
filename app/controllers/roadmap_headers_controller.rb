@@ -44,6 +44,7 @@ class RoadmapHeadersController < ApplicationController
   def update
     @roadmap_post = RoadmapHeader.find(params[:id])
     if @roadmap_post.update(roadmap_header_params)
+      flash[:success] = "Updated the Roadmap!"
       redirect_to roadmap_show_path(@roadmap_post)
     else
       render "edit"
@@ -52,7 +53,11 @@ class RoadmapHeadersController < ApplicationController
 
   # ロードマップ削除
   def destroy
-    RoadmapHeader.find(params[:id]).destroy
+    if RoadmapHeader.find(params[:id]).destroy
+      flash[:success] = "Deleted the Roadmap!"
+    else
+      flash[:alert] = "Error not delete!"
+    end
     redirect_to roadmaps_path
   end
 
