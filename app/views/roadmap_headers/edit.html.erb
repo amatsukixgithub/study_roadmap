@@ -10,8 +10,6 @@
           <%= r.fields_for :roadmap_detail do |rd| %>
             <%= rd.text_field :sub_title, class: "form-control mb-4", placeholder: "サブタイトル" %>
 
-            <%= rd.number_field :time_required, class: "form-control mb-4", placeholder: "所要時間(hour)" %>
-
             <div class="field">
               <%= rd.label :content %>
               <%= rd.rich_text_area :content, placeholder: "内容"  %>
