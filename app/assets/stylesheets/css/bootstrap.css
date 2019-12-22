@@ -5109,6 +5109,12 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-radius: 0.25rem;
 }
 
+.alert-alert {
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+}
+
 .alert-heading {
   color: inherit;
 }
