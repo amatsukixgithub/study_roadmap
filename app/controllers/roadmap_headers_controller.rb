@@ -44,6 +44,7 @@ class RoadmapHeadersController < ApplicationController
   def update
     @roadmap_post = RoadmapHeader.find(params[:id])
     if @roadmap_post.update(roadmap_header_params)
+      flash[:success] = "Updated the Roadmap!"
       redirect_to roadmap_show_path(@roadmap_post)
     else
       render "edit"
@@ -52,7 +53,11 @@ class RoadmapHeadersController < ApplicationController
 
   # ロードマップ削除
   def destroy
-    RoadmapHeader.find(params[:id]).destroy
+    if RoadmapHeader.find(params[:id]).destroy
+      flash[:success] = "Deleted the Roadmap!"
+    else
+      flash[:alert] = "Error not delete!"
+    end
     redirect_to roadmaps_path
   end
 
@@ -62,7 +67,7 @@ class RoadmapHeadersController < ApplicationController
   def roadmap_header_params
     # require(:roadmap_header) roadmap_header属性を必須とする
     # permit() 指定された属性を許可する
-    params.require(:roadmap_header).permit(:title, roadmap_detail_attributes: [:sub_title, :content, :time_required])
+    params.require(:roadmap_header).permit(:title, roadmap_detail_attributes: [:sub_title, :content])
   end
 
   # 作成者 or 管理者 以外のユーザーはアクセスできない

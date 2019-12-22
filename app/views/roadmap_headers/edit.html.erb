@@ -4,13 +4,13 @@
   <h3 class="h3 text-center mb-5"><i class="far fa-map light-blue-text"></i> <%= @title %></h3>
 
       <%= form_for(@roadmap_post, url: roadmap_update_path, class: "text-center border border-light p-5" ) do |r| %>
+        <%= render "devise/shared/error_messages", resource: @roadmap_post %>
+
         <%= r.text_field :title, class: "form-control mb-4", placeholder: "タイトル" %>
 
         <div>
           <%= r.fields_for :roadmap_detail do |rd| %>
             <%= rd.text_field :sub_title, class: "form-control mb-4", placeholder: "サブタイトル" %>
-
-            <%= rd.number_field :time_required, class: "form-control mb-4", placeholder: "所要時間(hour)" %>
 
             <div class="field">
               <%= rd.label :content %>
